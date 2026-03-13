@@ -11,6 +11,8 @@ interface NavbarProps {
   onSelectCategory: (category: string | 'All') => void;
   onLoginClick: () => void;
   user: any;
+  isAdmin: boolean;
+  onDashboardClick: () => void;
   onLogout: () => void;
   tournaments: Tournament[];
   searchQuery: string;
@@ -19,7 +21,7 @@ interface NavbarProps {
   onNotificationClick: () => void;
 }
 
-const Navbar = forwardRef<NavbarHandle, NavbarProps>(({ activeCategory, onSelectCategory, onLoginClick, user, onLogout, tournaments, searchQuery, onSearchChange, notificationCount, onNotificationClick }, ref) => {
+const Navbar = forwardRef<NavbarHandle, NavbarProps>(({ activeCategory, onSelectCategory, onLoginClick, user, isAdmin, onDashboardClick, onLogout, tournaments, searchQuery, onSearchChange, notificationCount, onNotificationClick }, ref) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
@@ -156,16 +158,16 @@ const Navbar = forwardRef<NavbarHandle, NavbarProps>(({ activeCategory, onSelect
                         <span className="text-xs font-black uppercase tracking-widest">My Watchlist</span>
                       </button>
 
-                      {user.email === 'jbmrsports@gmail.com' && (
+                      {isAdmin && (
                         <button 
                           onClick={() => {
-                            window.dispatchEvent(new CustomEvent('toggle-admin-dashboard'));
+                            onDashboardClick();
                             setShowProfileMenu(false);
                           }}
                           className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-sky-500/10 text-zinc-400 hover:text-sky-500 transition-all text-left"
                         >
                           <Shield className="w-4 h-4" />
-                          <span className="text-xs font-black uppercase tracking-widest">Admin Dashboard</span>
+                          <span className="text-xs font-black uppercase tracking-widest">Dashboard</span>
                         </button>
                       )}
 

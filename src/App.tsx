@@ -6,7 +6,7 @@ import Hero from './components/Hero';
 import VideoRow from './components/VideoRow';
 import PlayerModal from './components/PlayerModal';
 import DetailsPage from './components/DetailsPage';
-import AdminLogin from './components/AdminLogin';
+import AuthModal from './components/AuthModal';
 import AdminDashboard from './components/AdminDashboard';
 import TournamentRail from './components/TournamentRail';
 import AdBanner from './components/AdBanner';
@@ -24,7 +24,7 @@ export default function App() {
     return params.get('category') || 'All';
   });
   const [selectedMatch, setSelectedMatch] = useState<Match | null>(null);
-  const [showAdminLogin, setShowAdminLogin] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [showDashboard, setShowDashboard] = useState(() => {
     const params = new URLSearchParams(window.location.search);
@@ -164,25 +164,6 @@ export default function App() {
     });
   };
 
-  const handleAdminLogin = async (idToken: string) => {
-    // With direct SDK, auth.onAuthStateChanged handles this.
-    // We just verify if the current user has admin rights.
-    const firebaseUser = auth.currentUser;
-    if (firebaseUser) {
-      const roleRef = ref(db, `users/${firebaseUser.uid}/role`);
-      const snapshot = await get(roleRef);
-      const role = snapshot.val();
-      
-      if (role === 'admin' || firebaseUser.email === 'jbmrsports@gmail.com') {
-        setIsAdmin(true);
-        setShowAdminLogin(false);
-      } else {
-        alert('Unauthorized: Admin access required');
-        await signOut(auth);
-      }
-    }
-  };
-
   const handlePlayMatch = (match: Match) => {
     const tournamentName = tournaments.find(t => t.id === match.tournamentId)?.name || '';
     setSelectedMatch({ ...match, tournament: tournamentName });
@@ -230,8 +211,10 @@ export default function App() {
         ref={navbarRef}
         activeCategory={activeCategory} 
         onSelectCategory={handleCategoryChange} 
-        onLoginClick={() => setShowAdminLogin(true)}
+        onLoginClick={() => setShowAuthModal(true)}
         user={user}
+        isAdmin={isAdmin}
+        onDashboardClick={() => setShowDashboard(true)}
         onLogout={handleLogout}
         tournaments={tournaments}
         searchQuery={searchQuery}
@@ -437,15 +420,16 @@ export default function App() {
             if (searchInput) searchInput.focus();
           }, 100);
         }}
-        onLoginClick={() => setShowAdminLogin(true)}
+        onLoginClick={() => setShowAuthModal(true)}
         onProfileClick={() => navbarRef.current?.toggleProfileMenu()}
         user={user}
+        isAdmin={isAdmin}
+        onDashboardClick={() => setShowDashboard(true)}
       />
 
-      {showAdminLogin && (
-        <AdminLogin 
-          onLogin={handleAdminLogin} 
-          onCancel={() => setShowAdminLogin(false)} 
+      {showAuthModal && (
+        <AuthModal 
+          onCancel={() => setShowAuthModal(false)} 
         />
       )}
 

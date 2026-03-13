@@ -1,4 +1,4 @@
-import { Home, Search, Bookmark, User } from 'lucide-react';
+import { Home, Search, Bookmark, User, Shield } from 'lucide-react';
 
 interface BottomNavProps {
   activeCategory: string;
@@ -7,9 +7,11 @@ interface BottomNavProps {
   onLoginClick: () => void;
   onProfileClick: () => void;
   user: any;
+  isAdmin: boolean;
+  onDashboardClick: () => void;
 }
 
-export default function BottomNav({ activeCategory, onSelectCategory, onSearchClick, onLoginClick, onProfileClick, user }: BottomNavProps) {
+export default function BottomNav({ activeCategory, onSelectCategory, onSearchClick, onLoginClick, onProfileClick, user, isAdmin, onDashboardClick }: BottomNavProps) {
   return (
     <div className="md:hidden fixed bottom-0 w-full bg-zinc-950/90 backdrop-blur-lg border-t border-white/10 z-50 pb-safe">
       <div className="flex items-center justify-around h-16 px-2">
@@ -34,6 +36,15 @@ export default function BottomNav({ activeCategory, onSelectCategory, onSearchCl
           <Bookmark className="w-5 h-5 mb-1" />
           <span className="text-[10px] font-medium">Watchlist</span>
         </button>
+        {isAdmin && (
+          <button 
+            onClick={onDashboardClick}
+            className="flex flex-col items-center justify-center w-full h-full text-zinc-500 hover:text-sky-500 transition-colors"
+          >
+            <Shield className="w-5 h-5 mb-1" />
+            <span className="text-[10px] font-medium">Panel</span>
+          </button>
+        )}
         <button 
           onClick={user ? onProfileClick : onLoginClick}
           className={`flex flex-col items-center justify-center w-full h-full transition-colors ${user ? 'text-sky-500' : 'text-zinc-500'}`}
