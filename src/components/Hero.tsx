@@ -43,8 +43,8 @@ export default function Hero({ matches, onPlay }: HeroProps) {
     : [normalizedTitle, match.tournament || 'Latest Highlights'];
   
   const heroTitleSize = primaryTitle.length > 32
-    ? 'text-[clamp(1.2rem,5vw,2.8rem)] sm:text-[clamp(1.5rem,5vw,2.8rem)]'
-    : 'text-[clamp(1.6rem,6vw,4.4rem)] sm:text-[clamp(2rem,6vw,4.4rem)]';
+    ? 'text-[clamp(1.1rem,4vw,2.2rem)] sm:text-[clamp(1.4rem,4vw,2.2rem)]'
+    : 'text-[clamp(1.4rem,5vw,3.5rem)] sm:text-[clamp(1.8rem,5vw,3.5rem)]';
 
   const variants = {
     enter: (direction: number) => ({
@@ -142,7 +142,7 @@ export default function Hero({ matches, onPlay }: HeroProps) {
                 <span className="block opacity-95">
                   {primaryTitle}
                 </span>
-                <span className="block mt-0.5 sm:mt-2 text-[clamp(1rem,4vw,2.8rem)] text-sky-500 tracking-tight drop-shadow-[0_0_15px_rgba(14,165,233,0.4)]">
+                <span className="block mt-0.5 sm:mt-2 text-[clamp(0.9rem,3vw,2rem)] text-sky-500 tracking-tight drop-shadow-[0_0_15px_rgba(14,165,233,0.4)]">
                   {secondaryTitle}
                 </span>
               </motion.h1>
@@ -169,7 +169,7 @@ export default function Hero({ matches, onPlay }: HeroProps) {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
-                className="text-xs sm:text-lg lg:text-xl text-zinc-400/80 leading-relaxed max-w-xl font-medium line-clamp-2 sm:line-clamp-3"
+                className="text-[10px] sm:text-base lg:text-lg text-zinc-400/80 leading-relaxed max-w-xl font-medium line-clamp-2 sm:line-clamp-3"
               >
                 {match.description}
               </motion.p>

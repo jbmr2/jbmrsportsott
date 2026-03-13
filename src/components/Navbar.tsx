@@ -69,7 +69,7 @@ const Navbar = forwardRef<NavbarHandle, NavbarProps>(({ activeCategory, onSelect
               <div className="bg-sky-500 p-1 sm:p-1.5 rounded-lg shadow-lg shadow-sky-500/20 group-hover:scale-110 transition-transform">
                 <Play className="w-4 h-4 sm:w-5 sm:h-5 text-zinc-950 fill-zinc-950" />
               </div>
-              <span className="text-lg sm:text-2xl font-black tracking-tighter text-white whitespace-nowrap">JBMR SPORTS</span>
+              <span className="text-base sm:text-xl font-black tracking-tighter text-white whitespace-nowrap">JBMR SPORTS</span>
             </div>
 
             {/* Desktop Navigation */}

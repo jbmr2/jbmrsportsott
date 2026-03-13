@@ -393,8 +393,8 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12">
           <div>
-            <h1 className="text-3xl font-bold text-white">Admin Dashboard</h1>
-            <p className="text-zinc-400 mt-2">Manage tournaments and match highlights</p>
+            <h1 className="text-2xl font-bold text-white tracking-tight">Admin Dashboard</h1>
+            <p className="text-zinc-500 text-sm mt-1">Manage tournaments and match highlights</p>
           </div>
           <div className="flex items-center gap-4">
             <button
@@ -444,13 +444,13 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
           <div className="space-y-12">
             {/* Create/Edit Tournament */}
             <div className={`p-6 rounded-2xl border transition-all duration-500 ${editingTournamentId ? 'bg-sky-500/10 border-sky-500/30' : 'bg-zinc-900/50 border-white/10'}`}>
-              <h2 className="text-xl font-semibold mb-6 flex items-center gap-2 text-sky-500">
+              <h2 className="text-lg font-bold mb-6 flex items-center gap-2 text-sky-500 uppercase tracking-widest">
                 {editingTournamentId ? <Edit2 className="w-5 h-5" /> : <Plus className="w-5 h-5" />}
                 {editingTournamentId ? 'Edit Tournament' : 'Create New Tournament'}
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-zinc-500">Tournament Name</label>
+                  <label className="text-xs font-black uppercase tracking-widest text-zinc-500">Tournament Name</label>
                   <input
                     className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-sky-500"
                     placeholder="e.g., ICC World Cup"
@@ -459,7 +459,7 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-zinc-500">Short Name (for Rail)</label>
+                  <label className="text-xs font-black uppercase tracking-widest text-zinc-500">Short Name (for Rail)</label>
                   <input
                     className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-sky-500"
                     placeholder="e.g., World Cup"
@@ -468,7 +468,7 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-zinc-500">Year</label>
+                  <label className="text-xs font-black uppercase tracking-widest text-zinc-500">Year</label>
                   <input
                     className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-sky-500"
                     placeholder="e.g., 2024"
@@ -477,7 +477,7 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
                   />
                 </div>
                 <div className="space-y-2 md:col-span-3">
-                  <label className="text-sm font-medium text-zinc-500">Tournament Logo URL (16:9 recommended)</label>
+                  <label className="text-xs font-black uppercase tracking-widest text-zinc-500">Tournament Logo URL (16:9 recommended)</label>
                   <input
                     className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-sky-500"
                     placeholder="https://..."

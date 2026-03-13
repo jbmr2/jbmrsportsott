@@ -33,12 +33,12 @@ function PlaylistTitle({ title, stage }: { title: string; stage?: string }) {
           <p className="text-[9px] sm:text-[10px] font-bold text-zinc-500 uppercase tracking-widest truncate">
             {segments.slice(0, segments.length - 1).join(' | ')}
           </p>
-          <h4 className="text-[11px] sm:text-[13px] font-black text-zinc-100 leading-tight group-hover:text-sky-400 transition-colors uppercase break-words tracking-tight">
+          <h4 className="text-[10px] sm:text-[12px] font-black text-zinc-100 leading-tight group-hover:text-sky-400 transition-colors uppercase break-words tracking-tight">
             {segments[segments.length - 1]}
           </h4>
         </>
       ) : (
-        <h4 className="text-[11px] sm:text-[13px] font-black text-zinc-100 leading-tight group-hover:text-sky-400 transition-colors uppercase break-words tracking-tight">
+        <h4 className="text-[10px] sm:text-[12px] font-black text-zinc-100 leading-tight group-hover:text-sky-400 transition-colors uppercase break-words tracking-tight">
           {normalizedTitle}
         </h4>
       )}
@@ -105,7 +105,7 @@ export default function DetailsPage({ match, allMatches, tournaments, watchlist,
                 </div>
               </div>
 
-              <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black text-white tracking-tighter leading-tight">
+              <h1 className="text-xl sm:text-3xl lg:text-4xl font-black text-white tracking-tighter leading-tight">
                 {match.title}
               </h1>
 
@@ -141,8 +141,8 @@ export default function DetailsPage({ match, allMatches, tournaments, watchlist,
               </div>
 
               <div className="p-5 sm:p-8 bg-zinc-900/40 rounded-2xl sm:rounded-3xl border border-white/5 space-y-2 sm:space-y-4">
-                <h3 className="text-[10px] sm:text-xs font-black text-zinc-500 uppercase tracking-[0.2em]">Description</h3>
-                <p className="text-sm sm:text-lg text-zinc-300 leading-relaxed font-medium">
+                <h3 className="text-[9px] sm:text-[10px] font-black text-zinc-500 uppercase tracking-[0.2em]">Description</h3>
+                <p className="text-xs sm:text-base text-zinc-300 leading-relaxed font-medium">
                   {match.description}
                 </p>
               </div>
@@ -153,7 +153,7 @@ export default function DetailsPage({ match, allMatches, tournaments, watchlist,
           <div className="lg:col-span-5 space-y-4 sm:space-y-6">
             <div className="flex items-center justify-between px-1 sm:px-2">
               <div className="space-y-1">
-                <h2 className="text-lg sm:text-xl font-black text-white tracking-tighter uppercase">Playlist</h2>
+                <h2 className="text-base sm:text-lg font-black text-white tracking-tighter uppercase">Playlist</h2>
                 <div className="h-0.5 w-8 bg-sky-500 rounded-full" />
               </div>
               <span className="text-[9px] sm:text-[10px] font-black text-zinc-500 uppercase tracking-widest bg-zinc-900 px-2 sm:py-1 rounded-md border border-white/5">

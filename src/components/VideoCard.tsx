@@ -110,12 +110,12 @@ function VideoTitle({ title }: VideoTitleProps) {
     : [normalizedTitle, ''];
 
   return (
-    <h3 className="text-sm sm:text-base font-bold text-zinc-100 leading-tight transition-colors duration-300 group-hover:text-sky-400">
-      <span className="block uppercase text-[0.7rem] sm:text-[0.85rem] tracking-tight text-white line-clamp-1 sm:line-clamp-none">
+    <h3 className="text-xs sm:text-sm font-bold text-zinc-100 leading-tight transition-colors duration-300 group-hover:text-sky-400">
+      <span className="block uppercase text-[0.65rem] sm:text-[0.8rem] tracking-tight text-white line-clamp-1 sm:line-clamp-none">
         {lineOne}
       </span>
       {lineTwo ? (
-        <span className="block mt-0.5 sm:mt-1 uppercase text-[0.65rem] sm:text-[0.75rem] tracking-tight text-white/70 line-clamp-1 sm:line-clamp-none">
+        <span className="block mt-0.5 sm:mt-1 uppercase text-[0.6rem] sm:text-[0.7rem] tracking-tight text-white/70 line-clamp-1 sm:line-clamp-none">
           {lineTwo}
         </span>
       ) : null}

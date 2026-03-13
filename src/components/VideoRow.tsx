@@ -50,7 +50,7 @@ export default function VideoRow({ title, matches, onPlay }: VideoRowProps) {
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12">
         <div className="flex items-center justify-between group">
           <div className="space-y-1">
-            <h2 className="text-xl sm:text-3xl font-black text-white tracking-tighter flex items-center gap-2 sm:gap-3">
+            <h2 className="text-lg sm:text-2xl font-black text-white tracking-tighter flex items-center gap-2 sm:gap-3">
               {title}
               <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-sky-500 shadow-[0_0_10px_rgba(14,165,233,0.8)]" />
             </h2>
