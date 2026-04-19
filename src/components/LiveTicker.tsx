@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Activity } from 'lucide-react';
+import { Activity, ChevronRight } from 'lucide-react';
 
 interface TickerMatch {
   matchId: string;
@@ -51,26 +51,49 @@ export default function LiveTicker() {
   if (matches.length === 0) return null;
 
   return (
-    <div className="bg-sky-600/10 border-b border-sky-500/20 py-2 relative overflow-hidden whitespace-nowrap group">
-      <div className="flex animate-ticker items-center gap-12 sm:gap-24">
-        {/* Double the list for seamless loop */}
-        {[...matches, ...matches].map((m, i) => (
-          <div key={`${m.matchId}-${i}`} className="flex items-center gap-4">
-            <div className="flex items-center gap-2">
-              <Activity className="w-3 h-3 text-sky-500 animate-pulse" />
-              <span className="text-[10px] font-black text-white uppercase tracking-widest">{m.team1} vs {m.team2}</span>
-            </div>
-            <div className="flex items-center gap-2 font-mono text-[10px] font-bold">
-              <span className="text-sky-400">{m.score1}</span>
-              {m.score2 && <span className="text-zinc-500">|</span>}
-              <span className="text-sky-400">{m.score2}</span>
-            </div>
-            <span className="text-[8px] font-black text-zinc-500 uppercase tracking-tighter bg-zinc-800 px-1.5 py-0.5 rounded border border-white/5">
-              {m.status}
-            </span>
+    <div className="bg-zinc-950 border-b border-white/5 py-1.5 sm:py-2.5 relative z-[60] overflow-hidden group">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 flex items-center gap-6 sm:gap-10 overflow-x-auto hide-scrollbar">
+        {/* Live Indicator */}
+        <div className="flex-none flex items-center gap-2 pr-4 sm:pr-6 border-r border-white/10">
+          <div className="relative">
+            <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-red-500 rounded-full animate-ping absolute inset-0" />
+            <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-red-500 rounded-full relative" />
           </div>
-        ))}
+          <span className="text-[9px] sm:text-[10px] font-black text-white uppercase tracking-widest whitespace-nowrap">Live Scores</span>
+        </div>
+
+        {/* Scorecards */}
+        <div className="flex items-center gap-4 sm:gap-6 pb-0.5">
+          {matches.map((m) => (
+            <div 
+              key={m.matchId} 
+              className="flex-none flex items-center gap-4 bg-white/5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl border border-white/5 hover:border-sky-500/30 transition-all group/card cursor-pointer"
+            >
+              <div className="flex flex-col gap-0.5 sm:gap-1">
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <span className="text-[10px] font-black text-zinc-500 uppercase w-8 sm:w-10">{m.team1}</span>
+                  <span className="text-[10px] sm:text-xs font-bold text-white tracking-tight">{m.score1}</span>
+                </div>
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <span className="text-[10px] font-black text-zinc-500 uppercase w-8 sm:w-10">{m.team2}</span>
+                  <span className="text-[10px] sm:text-xs font-bold text-white tracking-tight">{m.score2 || (m.status.toLowerCase().includes('won') ? '' : 'Yet to bat')}</span>
+                </div>
+              </div>
+              
+              <div className="pl-3 sm:pl-4 border-l border-white/10 flex flex-col justify-center max-w-[120px]">
+                <span className="text-[8px] sm:text-[9px] font-black text-sky-500 uppercase tracking-tighter leading-none line-clamp-2">
+                  {m.status}
+                </span>
+                <ChevronRight className="w-3 h-3 text-zinc-600 mt-1 opacity-0 group-hover/card:opacity-100 transition-opacity" />
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
+      
+      {/* Decorative Gradient Overlays */}
+      <div className="absolute top-0 right-0 bottom-0 w-12 bg-gradient-to-l from-zinc-950 to-transparent pointer-events-none z-10" />
+      <div className="absolute top-0 left-0 bottom-0 w-12 bg-gradient-to-r from-zinc-950 to-transparent pointer-events-none z-10" />
     </div>
   );
 }
