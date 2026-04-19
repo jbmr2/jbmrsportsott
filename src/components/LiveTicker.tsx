@@ -16,7 +16,11 @@ export default function LiveTicker() {
   useEffect(() => {
     const fetchScores = async () => {
       try {
-        const res = await fetch('https://crickdbmodule-api-144271912366.asia-south1.run.app/api/tournaments/list-public?activeOnly=true');
+        const url = import.meta.env.DEV 
+          ? '/crick-api/tournaments/list-public?activeOnly=true'
+          : 'https://crickdbmodule-api-144271912366.asia-south1.run.app/api/tournaments/list-public?activeOnly=true';
+          
+        const res = await fetch(url);
         const data = await res.json();
         
         const liveMatches: TickerMatch[] = [];

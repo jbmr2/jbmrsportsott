@@ -24,6 +24,11 @@ export default defineConfig(({mode}) => {
           target: 'http://127.0.0.1:5000',
           changeOrigin: true,
         },
+        '/crick-api': {
+          target: 'https://crickdbmodule-api-144271912366.asia-south1.run.app',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/crick-api/, '/api'),
+        },
       },
       // HMR is disabled in AI Studio via DISABLE_HMR env var.
       // Do not modifyâfile watching is disabled to prevent flickering during agent edits.

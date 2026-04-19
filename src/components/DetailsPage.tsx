@@ -88,7 +88,11 @@ export default function DetailsPage({ match, allMatches, tournaments, watchlist,
       if (match.externalMatchId) {
         try {
           // First try active tournaments
-          let res = await fetch('https://crickdbmodule-api-144271912366.asia-south1.run.app/api/tournaments/list-public?activeOnly=true');
+          const activeUrl = import.meta.env.DEV 
+            ? '/crick-api/tournaments/list-public?activeOnly=true'
+            : 'https://crickdbmodule-api-144271912366.asia-south1.run.app/api/tournaments/list-public?activeOnly=true';
+          
+          let res = await fetch(activeUrl);
           let data = await res.json();
           
           let foundMatch = null;
@@ -99,7 +103,11 @@ export default function DetailsPage({ match, allMatches, tournaments, watchlist,
 
           // If not found in active, try all tournaments
           if (!foundMatch) {
-            res = await fetch('https://crickdbmodule-api-144271912366.asia-south1.run.app/api/tournaments/list-public');
+            const allUrl = import.meta.env.DEV 
+              ? '/crick-api/tournaments/list-public'
+              : 'https://crickdbmodule-api-144271912366.asia-south1.run.app/api/tournaments/list-public';
+            
+            res = await fetch(allUrl);
             data = await res.json();
             for (const t of data.tournaments || []) {
               foundMatch = t.matches?.find((m: any) => m.matchId === match.externalMatchId);
