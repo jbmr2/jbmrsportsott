@@ -26,16 +26,21 @@ export default function LiveTicker() {
         const liveMatches: TickerMatch[] = [];
         for (const t of data.tournaments || []) {
           for (const m of t.matches || []) {
-            if (m.status?.toLowerCase().includes('live') || m.status?.toLowerCase().includes('match')) {
+            const isLive = m.status?.toLowerCase().includes('live') || m.status?.toLowerCase().includes('match');
+            const isUpcoming = m.status?.toLowerCase().includes('scheduled') || m.status?.toLowerCase().includes('upcoming');
+            
+            if (isLive || isUpcoming) {
               const inn1 = m.innings?.find((i: any) => i.inningsNumber === 1);
               const inn2 = m.innings?.find((i: any) => i.inningsNumber === 2);
               
+              const startTime = m.scheduledAt ? new Date(m.scheduledAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
+
               liveMatches.push({
                 matchId: m.matchId,
                 team1: m.team1.shortName || m.team1.name,
                 team2: m.team2.shortName || m.team2.name,
-                score1: inn1 ? `${inn1.runs}/${inn1.wickets} (${inn1.overs})` : '0/0',
-                score2: inn2 ? `${inn2.runs}/${inn2.wickets} (${inn2.overs})` : '',
+                score1: isLive ? (inn1 ? `${inn1.runs}/${inn1.wickets} (${inn1.overs})` : '0/0') : (startTime || 'Upcoming'),
+                score2: isLive ? (inn2 ? `${inn2.runs}/${inn2.wickets} (${inn2.overs})` : (inn1 ? 'Yet to bat' : '0/0')) : '',
                 status: m.status
               });
             }
@@ -60,10 +65,10 @@ export default function LiveTicker() {
         {/* Live Indicator */}
         <div className="flex-none flex items-center gap-2 pr-4 sm:pr-6 border-r border-white/10">
           <div className="relative">
-            <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-red-500 rounded-full animate-ping absolute inset-0" />
-            <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-red-500 rounded-full relative" />
+            <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-sky-500 rounded-full animate-ping absolute inset-0" />
+            <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-sky-500 rounded-full relative" />
           </div>
-          <span className="text-[9px] sm:text-[10px] font-black text-white uppercase tracking-widest whitespace-nowrap">Live Scores</span>
+          <span className="text-[9px] sm:text-[10px] font-black text-white uppercase tracking-widest whitespace-nowrap">Match Scores</span>
         </div>
 
         {/* Scorecards */}

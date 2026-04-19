@@ -94,6 +94,11 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
   const [isUploadingVideo, setIsUploadingVideo] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
 
+  // CrickDB API Import State
+  const [apiMatches, setApiMatches] = useState<any[]>([]);
+  const [isFetchingApi, setIsFetchingApi] = useState(false);
+  const [showApiMatches, setShowApiMatches] = useState(false);
+
   const resetMatchForm = (tournamentId?: string) => {
     setNewMatch(createMatchFormState({ tournamentId }));
   };
@@ -485,6 +490,52 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
   const handleCancelTournamentEdit = () => {
     setEditingTournamentId(null);
     setNewTournament({});
+  };
+
+  const fetchApiMatches = async () => {
+    setIsFetchingApi(true);
+    try {
+      const url = import.meta.env.DEV 
+        ? '/crick-api/tournaments/list-public?activeOnly=true'
+        : 'https://crickdbmodule-api-144271912366.asia-south1.run.app/api/tournaments/list-public?activeOnly=true';
+      
+      const res = await fetch(url);
+      const data = await res.json();
+      
+      const allMatches: any[] = [];
+      data.tournaments?.forEach((t: any) => {
+        t.matches?.forEach((m: any) => {
+          allMatches.push({
+            ...m,
+            tournamentName: t.name,
+            tournamentId: t.tournamentId
+          });
+        });
+      });
+      
+      setApiMatches(allMatches);
+      setShowApiMatches(true);
+    } catch (err) {
+      console.error('API Fetch Error:', err);
+      alert('Failed to fetch matches from API');
+    } finally {
+      setIsFetchingApi(false);
+    }
+  };
+
+  const handleImportMatch = (m: any) => {
+    const scheduledDate = new Date(m.scheduledAt);
+    setNewMatch({
+      ...newMatch,
+      title: `${m.team1.name} vs ${m.team2.name}`,
+      date: scheduledDate.toISOString().split('T')[0],
+      time: scheduledDate.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }),
+      externalMatchId: m.matchId,
+      thumbnail: m.thumbnailUrl || '',
+      stageType: m.stage ? m.stage.charAt(0).toUpperCase() + m.stage.slice(1) : 'Custom Stage',
+      customStage: m.stage ? m.stage.charAt(0).toUpperCase() + m.stage.slice(1) : ''
+    });
+    setShowApiMatches(false);
   };
 
   const handleAddMatch = async () => {
